@@ -60,8 +60,7 @@ function App() {
 
   useEffect(() => {
     calcular();
-  }, [cantidad, valorCambio, monedaDestino]);
-
+  }, [cantidad, valorCambio, monedaDestino, calcular]);
 
   return (
     <div className="container-fluid py-4">
