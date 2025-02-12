@@ -47,10 +47,6 @@ function App() {
     }
   }, [modoOscuro]);
 
-  useEffect(() => {
-    calcular();
-  }, [cantidad, valorCambio, monedaDestino]);
-
   const calcular = () => {
     const cantidadNumerica = parseFloat(cantidad);
     if (!isNaN(cantidadNumerica) && valorCambio) {
@@ -60,6 +56,12 @@ function App() {
       resultadoRef.current.innerHTML = "Introduce un valor válido";
     }
   };
+
+
+  useEffect(() => {
+    calcular();
+  }, [cantidad, valorCambio, monedaDestino]);
+
 
   return (
     <div className="container-fluid py-4">
