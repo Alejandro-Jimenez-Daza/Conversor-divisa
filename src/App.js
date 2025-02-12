@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import Select from "react-select";
@@ -47,7 +47,9 @@ function App() {
     }
   }, [modoOscuro]);
 
-  const calcular = () => {
+  const calcular = useCallback(() => {
+    if (!resultadoRef.current) return; // Evitar error si el ref aún no está asignado
+
     const cantidadNumerica = parseFloat(cantidad);
     if (!isNaN(cantidadNumerica) && valorCambio) {
       const resultado = cantidadNumerica * valorCambio;
@@ -55,12 +57,14 @@ function App() {
     } else {
       resultadoRef.current.innerHTML = "Introduce un valor válido";
     }
-  };
+  }, [cantidad, valorCambio, monedaDestino, resultadoRef]);
+
 
 
   useEffect(() => {
     calcular();
-  }, [cantidad, valorCambio, monedaDestino, calcular]);
+  }, [calcular]);
+
 
   return (
     <div className="container-fluid py-4">
